@@ -1,0 +1,8 @@
+package com.example.project;
+
+public class JSONParser {
+	public static void Parse(JSONObject object)
+	{
+		
+	}
+}

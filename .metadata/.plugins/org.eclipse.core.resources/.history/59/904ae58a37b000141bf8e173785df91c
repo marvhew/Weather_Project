@@ -1,0 +1,9 @@
+package com.example.project;
+
+import org.json.JSONObject;
+
+public class JSONParser {
+	public static DayForecast[] Parse(JSONObject object, int DaysCount) {
+		return null;
+	}
+}

@@ -1,0 +1,18 @@
+package com.example.project;
+
+import java.util.Map;
+
+public class City {
+	private long lat;
+	private long lon;
+	private String name;
+	public City(String name)
+	{
+		this.name = name;
+		getCords();
+	}
+	private void getCords()
+	{
+		
+	}
+}
