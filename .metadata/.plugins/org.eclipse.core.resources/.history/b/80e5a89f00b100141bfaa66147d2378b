@@ -1,0 +1,66 @@
+package com.example.weather_project;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class JSONParser {
+	public static DayForecast[] ParseForecast(JSONObject object, int DaysCount) {
+		DayForecast[] forecastTab = null;
+		JSONArray lists = object.optJSONArray("list");
+		if (lists != null) {
+			forecastTab = new DayForecast[DaysCount];
+			for (int i = 0; i < DaysCount; i++) {
+				try {
+					forecastTab[i] = ParseDay(lists.getJSONObject(i));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return forecastTab;
+	}
+
+	private static DayForecast ParseDay(JSONObject object) {
+		
+		return null;
+	}
+	
+	private static Weather ParseWeather(JSONArray array)
+	{
+		
+		JSONObject object = null;
+		try {
+			object = array.getJSONObject(0);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Weather weather = null;
+		
+		try {
+			weather = new Weather(object.getInt("ID"),object.getString("main"),object.getString("description"),object.getString("icon"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return weather;
+	}
+	
+	private static Temperature ParseTemperature(JSONObject object)
+	{
+		Temperature temperature=null;
+		try {
+			temperature = new Temperature(object.getLong("day"),object.getLong("min"),object.getLong("max"),object.getLong("night"),object.getLong("eve"),object.getLong("morn"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return temperature;
+	}
+}
+//Stalker
+//Liam
+//Horisont

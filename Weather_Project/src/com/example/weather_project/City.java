@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -66,7 +64,7 @@ public class City {
 	private void ParseJSON(String JSONString) {
 		try {
 			JSONObject object = new JSONObject(JSONString);
-			forecast = JSONParser.Parse(object, DaysCount);
+			forecast = JSONParser.ParseForecast(object, DaysCount);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
