@@ -11,27 +11,74 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 public class City {
-	private final int DaysCount = 10;
+	private int DaysCount;
 	private String name;
 	private DayForecast[] forecast;
-	public City(String name)
-	{
-		this.name = name;
+	private boolean isLoaded;
+	public City(String name, int DaysCount, String country) {
+		this.DaysCount = DaysCount;
+		this.name = name+","+country;
+		this.isLoaded = false;
 		getJSON();
 	}
-	private void getJSON()
-	{
-		JSONAsyncTask task = new JSONAsyncTask();
-		task.execute("http://api.openweathermap.org/data/2.5/forecast/daily?q="+name+"&cnt="+DaysCount+"&mode=json&units=metric");
+
+	public City(String name) {
+		this(name, 10,"PL");
 	}
 	
-	private class JSONAsyncTask extends AsyncTask<String, Void, String> {
+	public City(String name, String country )
+	{
+		this(name,10,country);
+	}
+	
+	
+	public boolean isForecastNull()
+	{
+		return (forecast==null)?true:false;
+	}
 
+	public boolean getIsLoaded()
+	{
+		return isLoaded;
+	}
+	
+	public DayForecast GetDayForecast(int index) {
+		DayForecast dayForecast = (index > 0) ? (forecast.length > index) ? forecast[index]
+				: null
+				: null;
+		return dayForecast;
+
+	}
+
+	private void getJSON() {
+		JSONAsyncTask task = new JSONAsyncTask();
+		task.execute("http://api.openweathermap.org/data/2.5/forecast/daily?q="
+				+ name + "&cnt=" + DaysCount + "&mode=json&units=metric");
+	}
+
+	private void ParseJSON(String JSONString) {
+		try {
+			JSONObject object = new JSONObject(JSONString);
+			forecast = JSONParser.Parse(object, DaysCount);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			forecast = null;
+		}
+		finally
+		{
+			isLoaded = true;
+		}
+	}
+
+	private class JSONAsyncTask extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -71,6 +118,7 @@ public class City {
 
 		@Override
 		protected void onPostExecute(String result) {
+			ParseJSON(result);
 			super.onPostExecute(result);
 		}
 
