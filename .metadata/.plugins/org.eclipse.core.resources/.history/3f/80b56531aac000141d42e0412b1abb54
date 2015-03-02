@@ -64,11 +64,7 @@ public class City {
 	private void ParseJSON(String JSONString) {
 		try {
 			JSONObject object = new JSONObject(JSONString);
-			if(object.toString()!="{\"message\":\"\",\"cod\":\"404\"} ")
-				forecast = JSONParser.ParseForecast(object, DaysCount);
-			else{
-				throw(new JSONException(""));
-			}
+			forecast = JSONParser.ParseForecast(object, DaysCount);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
