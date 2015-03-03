@@ -3,6 +3,7 @@ package com.example.weather_project;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private final int DaysCount = 10;
 
+	City city;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,9 +31,9 @@ public class MainActivity extends Activity {
 		CreateProgressBar();
 		ChangeEnabled();
 		EditText TxtView = (EditText) findViewById(R.id.Edit_City);
-		City city = new City(TxtView.getText().toString().trim().replace(' ', '_'));
+		city = new City(TxtView.getText().toString().trim().replace(' ', '_'));
 		ashelp help = new ashelp();
-		help.execute(city);
+		help.execute();
 	}
 	
 	public void CreateProgressBar()
@@ -60,19 +63,24 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	public void End(City city)
+	public void End()
 	{
-		String message;
 		while (!city.getIsLoaded())
 			;
 		if (city.isForecastNull()) {
-			message = "Something went wrong";
+			Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
 		} else {
-			message = "Should work";
+			StartCityActivity();
 		}
-		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		RemoveProgressBar();
 		ChangeEnabled();
+	}
+	
+	public void StartCityActivity()
+	{
+		Intent intent = new Intent(this,CityActivity.class);
+		intent.putExtra("City", city);
+		startActivity(intent);
 	}
 	
 	@Override
@@ -87,13 +95,13 @@ public class MainActivity extends Activity {
 		@Override
 		protected City doInBackground(City... params) {
 			// TODO Auto-generated method stub
-			while(!params[0].getIsLoaded());
-			return params[0];
+			while(!city.getIsLoaded());
+			return null;
 		}
 		@Override
 		protected void onPostExecute(City result) {
 			// TODO Auto-generated method stub
-			End(result);
+			End();
 			super.onPostExecute(result);
 		}
 	} 

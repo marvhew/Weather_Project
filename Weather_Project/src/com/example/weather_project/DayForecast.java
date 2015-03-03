@@ -1,10 +1,11 @@
 package com.example.weather_project;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import org.json.JSONObject;
 
-public class DayForecast {
+public class DayForecast implements Serializable{
 	Temperature temperature;
 	Weather weather;
 	Date dt;

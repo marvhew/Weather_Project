@@ -4,5 +4,7 @@
     <string name="app_name">Weather_Project</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_city">CityActivity</string>
+    <string name="title_activity_day">DayActivity</string>
 
 </resources>

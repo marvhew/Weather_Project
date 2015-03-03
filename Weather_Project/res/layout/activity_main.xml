@@ -10,7 +10,7 @@
     tools:context="com.example.weather_project.MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/Txt_CityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,9 +22,9 @@
         android:id="@+id/Edit_City"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBottom="@+id/Txt_CityName"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/Txt_CityName"
         android:ems="10" >
 
         <requestFocus />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/Txt_CityName"
         android:text="Try to load"
         android:onClick="Btn_Load_Click" />
 
