@@ -1,9 +1,12 @@
 package com.example.weather_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class CityActivity extends Activity {
 
@@ -11,6 +14,12 @@ public class CityActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_city);
+		TextView CityName = (TextView) findViewById(R.id.Txt_CityName);
+		City city = (City)getIntent().getExtras().get("City");
+		CityName.setText(city.getName());
+		ForecastDaysListAdapter adapter = new ForecastDaysListAdapter(this, R.layout.day_row, city.getForecast());
+		ListView list = (ListView)findViewById(R.id.listView1);
+		list.setAdapter(adapter);
 	}
 
 	@Override

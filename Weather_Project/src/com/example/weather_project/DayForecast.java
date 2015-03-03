@@ -6,11 +6,11 @@ import java.sql.Date;
 import org.json.JSONObject;
 
 public class DayForecast implements Serializable{
-	Temperature temperature;
-	Weather weather;
-	Date dt;
-	long pressure,speed,rain,snow;
-	int humidity,deg,clouds;
+	private Temperature temperature;
+	private Weather weather;
+	private Date dt;
+	private long pressure,speed,rain,snow;
+	private int humidity,deg,clouds;
 	
 	public DayForecast(Temperature temperature, Weather weather, Date dt, long pressure, long speed, long rain, long snow, int humidity, int deg, int clouds)
 	{
@@ -25,4 +25,43 @@ public class DayForecast implements Serializable{
 		this.humidity=humidity;
 		this.clouds=clouds;
 	}
+	
+	public Date getDate()
+	{
+		return dt;
+	}
+	
+	public String getDateAsString()
+	{
+		return dt.toString();
+	}
+	
+	public String getPressureAsString()
+	{
+		return ""+pressure;
+	}
+	
+	public String getPrecipitationAsString()
+	{
+		String Precipitation = "";
+		if(rain!=0)
+		{
+			Precipitation+="R";
+		}
+		if(snow!=0)
+		{
+			Precipitation+="S";
+		}
+		if(Precipitation=="")
+		{
+			Precipitation="N";
+		}
+		return Precipitation;
+	}
+	
+	public String getTemperatureAsString()
+	{
+		return ""+((temperature.min+temperature.max)/2);
+	}
 }
+

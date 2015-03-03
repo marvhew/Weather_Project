@@ -3,7 +3,7 @@ package com.example.weather_project;
 import java.io.Serializable;
 
 public class Temperature  implements Serializable{
-	long day,min,max,night,eve,morn;
+	public long day,min,max,night,eve,morn;
 	
 	public Temperature(long day, long min, long max, long night, long eve, long morn)
 	{

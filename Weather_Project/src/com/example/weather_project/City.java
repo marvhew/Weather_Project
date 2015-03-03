@@ -37,7 +37,12 @@ public class City implements Serializable{
 	{
 		this(name,10,country);
 	}
+
 	
+	public String getName()
+	{
+		return name;
+	}
 	
 	public boolean isForecastNull()
 	{
@@ -49,6 +54,14 @@ public class City implements Serializable{
 		return isLoaded;
 	}
 	
+	public DayForecast[] getForecast()
+	{
+		return forecast;
+	}
+	
+	public int GetDaysCount() {
+		return forecast.length;
+	}
 	public DayForecast GetDayForecast(int index) {
 		DayForecast dayForecast = (index > 0) ? (forecast.length > index) ? forecast[index]
 				: null
