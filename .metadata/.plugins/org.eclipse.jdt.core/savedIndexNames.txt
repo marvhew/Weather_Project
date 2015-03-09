@@ -1,3 +1,0 @@
-INDEX VERSION 1.126+C:\Users\student\Desktop\Weather_Project\.metadata\.plugins\org.eclipse.jdt.core
-3066571016.index
-2565302201.index

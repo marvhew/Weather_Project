@@ -1,0 +1,93 @@
+package com.example.weather_project;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class DayActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_day);
+
+		DayForecast forecast = (DayForecast) getIntent().getExtras().get(
+				"DayForecast");
+		TextView editingView = (TextView) findViewById(R.id.Txt_DayActivityDate);
+		editingView.setText(forecast.getDateAsString());
+		editingView = (TextView) findViewById(R.id.Txt_DayActivityDate);
+		editingView.setText(forecast.getDateAsString());
+		editingView = (TextView) findViewById(R.id.Txt_Description);
+		editingView.setText(forecast.getDescription());
+		editingView = (TextView) findViewById(R.id.Txt_DayActivityPressure);
+		editingView.setText(forecast.getPressureAsString());
+		editingView = (TextView) findViewById(R.id.Txt_TemperatureMin);
+		editingView.setText(forecast.getTemperatureMinAsString());
+		editingView = (TextView) findViewById(R.id.Txt_TemperatureMax);
+		editingView.setText(forecast.getTemperatureMaxAsString());
+		editingView = (TextView) findViewById(R.id.Txt_TemperatureMorn);
+		editingView.setText(forecast.getTemperatureMornAsString());
+		editingView = (TextView) findViewById(R.id.Txt_TemperatureEve);
+		editingView.setText(forecast.getTemperatureEveAsString());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.day, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private class LoadImage extends AsyncTask<String, String, Bitmap> {
+		protected Bitmap doInBackground(String... args) {
+			try {
+				bitmap = BitmapFactory.decodeStream((InputStream) new URL(
+						args[0]).getContent());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return bitmap;
+		}
+
+		protected void onPostExecute(Bitmap image) {
+			if (image != null) {
+				ImageView img = (ImageView) findViewById(R.id.imageView1);
+				img.setImageBitmap(image);
+			} else {
+				Toast.makeText(DayActivity.this,
+						"Image Does Not exist or Network Error",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+}

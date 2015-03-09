@@ -1,0 +1,72 @@
+package com.example.weather_project;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import org.json.JSONObject;
+
+public class DayForecast implements Serializable{
+	private Temperature temperature;
+	private Weather weather;
+	private Date dt;
+	private long pressure,speed,rain,snow;
+	private int humidity,deg,clouds;
+	
+	public DayForecast(Temperature temperature, Weather weather, Date dt, long pressure, long speed, long rain, long snow, int humidity, int deg, int clouds)
+	{
+		this.temperature=temperature;
+		this.weather=weather;
+		this.dt=dt;
+		this.deg=deg;
+		this.pressure=pressure;
+		this.speed=speed;
+		this.rain=rain;
+		this.snow=snow;
+		this.humidity=humidity;
+		this.clouds=clouds;
+	}
+	
+	public Date getDate()
+	{
+		return dt;
+	}
+	
+	public String getDateAsString()
+	{
+		return dt.toString();
+	}
+	
+	public String getPressureAsString()
+	{
+		return ""+pressure;
+	}
+	
+	public String getPrecipitationAsString()
+	{
+		String Precipitation = "";
+		if(rain!=0.00)
+		{
+			Precipitation+="R";
+		}
+		if(snow!=0.00)
+		{
+			Precipitation+="S";
+		}
+		if(Precipitation=="")
+		{
+			Precipitation="N";
+		}
+		return Precipitation;
+	}
+	
+	public String getShortDescription()
+	{
+		return ""+weather.getShort();
+	}
+	
+	public String getTemperatureAsString()
+	{
+		return ""+((temperature.min+temperature.max)/2);
+	}
+}
+
