@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Menu;
@@ -24,6 +26,25 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		EditText edit = (EditText) findViewById(R.id.Edit_Country);
+		InputFilter myFilter = new InputFilter() {
+			@Override
+			public CharSequence filter(CharSequence source, int start, int end,
+					Spanned dest, int dstart, int dend) {
+				// TODO Auto-generated method stub
+				try {
+		            Character c = source.charAt(0);
+		            if (Character.isLetter(c)) {
+		                return "" + Character.toUpperCase(c);
+		            } else {
+		                return "";
+		            }
+		        } catch (Exception e) {
+		        }
+		        return null;
+			}
+		};
+		edit.setFilters(new InputFilter[] { myFilter,new InputFilter.LengthFilter(2) });
 	}
 
 	public void Btn_Load_Click(View v) {
@@ -34,7 +55,7 @@ public class MainActivity extends Activity {
 		TxtView = (EditText) findViewById(R.id.Edit_Country);
 		String countryShort = TxtView.getText().toString().trim()
 				.replace(' ', '_');
-		city = new City(cityName, (countryShort.isEmpty())?"PL":countryShort);
+		city = new City((cityName.isEmpty())?"BlankCityField":cityName, (countryShort.isEmpty())?"PL":countryShort);
 		ashelp help = new ashelp();
 		help.execute();
 	}

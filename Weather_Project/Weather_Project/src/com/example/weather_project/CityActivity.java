@@ -20,7 +20,7 @@ public class CityActivity extends Activity {
 		setContentView(R.layout.activity_city);
 		TextView CityName = (TextView) findViewById(R.id.Txt_CityName);
 		City city = (City)getIntent().getExtras().get("City");
-		CityName.setText(city.getName());
+		CityName.setText(city.getName()+" in "+city.getCountry());
 		ForecastDaysListAdapter adapter = new ForecastDaysListAdapter(this, R.layout.day_row, city.getForecast());
 		ListView list = (ListView)findViewById(R.id.listView1);
 		list.setAdapter(adapter);

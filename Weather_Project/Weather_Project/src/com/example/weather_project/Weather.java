@@ -30,7 +30,3 @@ public class Weather implements Serializable {
 		return "http://openweathermap.org/img/w/"+iconID+".png";
 	}
 }
-/*    "id":600,
-"main":"Snow",
-"description":"light snow",
-"icon":"13d"*/

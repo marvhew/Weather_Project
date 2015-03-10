@@ -21,6 +21,7 @@ public class City implements Serializable {
 	private int DaysCount;
 	private String name;
 	private String usersName;
+	private String country;
 	private DayForecast[] forecast;
 	private boolean isLoaded;
 
@@ -41,6 +42,10 @@ public class City implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getCountry() {
+		return country;
 	}
 
 	public boolean isForecastNull() {
@@ -70,18 +75,20 @@ public class City implements Serializable {
 	private void getJSON() {
 		JSONAsyncTask task = new JSONAsyncTask();
 		task.execute("http://api.openweathermap.org/data/2.5/forecast/daily?q="
-				+ usersName + "&cnt=" + DaysCount + "&mode=json&units=metric");
+				+ usersName + "&cnt=" + DaysCount
+				+ "&mode=json&units=metric&type=accurate");
 	}
 
 	private void ParseJSON(String JSONString) {
 		try {
 			JSONObject object = new JSONObject(JSONString);
-			if (object.toString() != "{\"message\":\"\",\"cod\":\"404\"} ") {
-				forecast = JSONParser.ParseForecast(object, DaysCount);
-				name = object.optJSONObject("city").optString("name");
-			} else {
-				throw (new JSONException(""));
+			forecast = JSONParser.ParseForecast(object, DaysCount);
+			object = object.optJSONObject("city");
+			if (object != null) {
+				name = object.optString("name");
+				country = object.optString("country");
 			}
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

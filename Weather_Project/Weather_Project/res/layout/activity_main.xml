@@ -54,4 +54,13 @@
         android:text="Country(PL if empty):"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Btn_Load"
+        android:text="Note: If City and Country aren&apos;t correct or city does not exist in such country, then program may show info about some unexpected country."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>
